@@ -1,53 +1,79 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_shop/constant/index.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import './home_page.dart';
 import './category_page.dart';
 import './cart_page.dart';
 import './member_page.dart';
 
+const double _TabTextSize = 22.0;
+
 class IndexPage extends StatefulWidget {
-  _IndexPage createState() => _IndexPage();
+  @override
+  _IndexPageState createState() => new _IndexPageState();
 }
 
-class _IndexPage extends State<IndexPage> {
-  final List<BottomNavigationBarItem> bottomTabs = [
-    BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), title: Text('首页')),
-    BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.search), title: Text('分类')),
-    BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.shopping_cart), title: Text('购物车')),
-    BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.profile_circled), title: Text('会员中心'))
-  ];
+class _IndexPageState extends State<IndexPage> {
+  final tabTextStyleNormal =
+      new TextStyle(color: ColorConstant.textLight, fontSize: _TabTextSize);
 
-  final List tabBodies = [HomePage(), CategoryPage(), CartPage(), MemberPage()];
-
-  int currentIndex = 0;
-  var currentPage;
+  final tabTextStyleSelected = new TextStyle(
+      color: ColorConstant.theme,
+//      fontSize: ScreenUtil().setSp(_TabTextSize),
+      fontWeight: FontWeight.w600);
+  int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    currentPage = tabBodies[0];
+  }
+
+  Text getBottomNavigationTitle(int currentIndex) {
+    return new Text(
+      TextConstant.bottomTitles[currentIndex],
+      style: currentIndex == _currentIndex
+          ? tabTextStyleSelected
+          : tabTextStyleNormal,
+    );
+  }
+
+  List<BottomNavigationBarItem> bottomNavigationBar() {
+    List<BottomNavigationBarItem> _itemBar = [];
+    for (int i = 0; i < TextConstant.bottomTabs.length; i++) {
+      _itemBar.add(new BottomNavigationBarItem(
+          icon: TextConstant.bottomTabs[i],
+          activeIcon: TextConstant.bottomTabs[i],
+          title: getBottomNavigationTitle(i)));
+    }
+    return _itemBar;
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(
-      backgroundColor: Color.fromRGBO(244, 245, 245, 1.0),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: currentIndex,
-        items: bottomTabs,
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-            currentPage = tabBodies[index];
-          });
-        },
-      ),
-      body: currentPage,
-    );
+    ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
+    return new Scaffold(
+        body: new IndexedStack(
+          children: <Widget>[
+            new HomePage(),
+            new CategoryPage(),
+            new CartPage(),
+            new MemberPage()
+          ],
+          index: _currentIndex,
+        ),
+        bottomNavigationBar: new CupertinoTabBar(
+          backgroundColor: Colors.white,
+          items: bottomNavigationBar(),
+          currentIndex: _currentIndex,
+          activeColor: ColorConstant.theme,
+          inactiveColor: CupertinoColors.inactiveGray,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+        ));
   }
 }
