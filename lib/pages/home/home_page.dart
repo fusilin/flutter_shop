@@ -49,22 +49,25 @@ class _HomePage extends State<HomePage> {
             }
 
             String advertesPicture =
-                data['data']['advertesPicture']['PICTURE_ADDRESS']; //广告图片
+            data['data']['advertesPicture']['PICTURE_ADDRESS']; //广告图片
 
             String leaderImage = data['data']['shopInfo']['leaderImage']; //店长图片
             String leaderPhone = data['data']['shopInfo']['leaderPhone']; //店长电话
 
-            return Column(
-              children: <Widget>[
-                SwiperDiy(
-                  swiperDataList: swiper,
-                ),
-                GirdView(
-                  navigatorList: navigatorList,
-                ),
-                AdBanner(advertesPicture: advertesPicture), //广告组件
-                LeaderPhone(leaderImage: leaderImage, leaderPhone: leaderPhone),
-              ],
+            return SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  SwiperDiy(
+                    swiperDataList: swiper,
+                  ),
+                  GirdView(
+                    navigatorList: navigatorList,
+                  ),
+                  AdBanner(advertesPicture: advertesPicture), //广告组件
+                  LeaderPhone(
+                      leaderImage: leaderImage, leaderPhone: leaderPhone),
+                ],
+              ),
             );
           } else {
             return Center(
