@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:core';
-import '../service/service_method.dart';
-import '../components/swiper_diy.dart';
+import 'package:flutter_shop/service/service_method.dart';
+import 'package:flutter_shop/widget/index.dart';
+import './ad_banner.dart';
+import './leader_phone.dart';
 import 'dart:convert';
 
 class HomePage extends StatefulWidget {
@@ -41,11 +43,27 @@ class _HomePage extends State<HomePage> {
           if (snapshot.hasData) {
             var data = json.decode(snapshot.data.toString());
             List<Map> swiper = (data['data']['slides'] as List).cast();
+            List<Map> navigatorList = (data['data']['category'] as List).cast();
+            if (navigatorList.length > 10) {
+              navigatorList.removeRange(10, navigatorList.length);
+            }
+
+            String advertesPicture =
+                data['data']['advertesPicture']['PICTURE_ADDRESS']; //广告图片
+
+            String leaderImage = data['data']['shopInfo']['leaderImage']; //店长图片
+            String leaderPhone = data['data']['shopInfo']['leaderPhone']; //店长电话
+
             return Column(
               children: <Widget>[
                 SwiperDiy(
                   swiperDataList: swiper,
-                )
+                ),
+                GirdView(
+                  navigatorList: navigatorList,
+                ),
+                AdBanner(advertesPicture: advertesPicture), //广告组件
+                LeaderPhone(leaderImage: leaderImage, leaderPhone: leaderPhone),
               ],
             );
           } else {

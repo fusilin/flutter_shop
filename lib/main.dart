@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/constant/index.dart';
-import './pages/index_page.dart';
+import 'package:flutter_shop/config.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: ColorConstant.theme
         ),
-        home: IndexPage(),
+        home: Config(),
       ),
     );
   }

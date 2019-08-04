@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_shop/constant/index.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import './home_page.dart';
-import './category_page.dart';
-import './cart_page.dart';
-import './member_page.dart';
+import 'package:flutter_shop/constant/index.dart';
+import 'package:flutter_shop/pages/home/home_page.dart';
+import 'package:flutter_shop/pages/category_page.dart';
+import 'package:flutter_shop/pages/cart_page.dart';
+import 'package:flutter_shop/pages/member_page.dart';
 
-const double _TabTextSize = 22.0;
+
+final double _TabTextSize = ScreenUtil.getInstance().setSp(22.0);
 
 class IndexPage extends StatefulWidget {
   @override
@@ -18,10 +19,9 @@ class IndexPage extends StatefulWidget {
 class _IndexPageState extends State<IndexPage> {
   final tabTextStyleNormal =
       new TextStyle(color: ColorConstant.textLight, fontSize: _TabTextSize);
-
   final tabTextStyleSelected = new TextStyle(
       color: ColorConstant.theme,
-//      fontSize: ScreenUtil().setSp(_TabTextSize),
+      fontSize: _TabTextSize,
       fontWeight: FontWeight.w600);
   int _currentIndex = 0;
 
@@ -52,7 +52,6 @@ class _IndexPageState extends State<IndexPage> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
     return new Scaffold(
         body: new IndexedStack(
           children: <Widget>[

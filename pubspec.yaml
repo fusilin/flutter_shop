@@ -26,6 +26,10 @@ dependencies:
   flutter_screenutil: ^0.5.1
   # 轮播图
   flutter_swiper: ^1.1.6
+  # 启动屏
+  splashscreen: ^1.2.0
+  # 拨打电话
+  url_launcher: ^5.1.2
 
 dev_dependencies:
   flutter_test:
@@ -42,11 +46,11 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/swiper1.jpg
+    - assets/swiper2.jpg
+    # To add assets to your application, add an assets section, like this:
 
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
-  #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

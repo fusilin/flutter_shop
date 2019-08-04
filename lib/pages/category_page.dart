@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import '../config/httpHeaders.dart';
+import '../configs/httpHeaders.dart';
 
 class CategoryPage extends StatefulWidget {
   _CategoryPage createState() => _CategoryPage();
