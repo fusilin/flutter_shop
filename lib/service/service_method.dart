@@ -21,3 +21,26 @@ getHomePageContent() async {
     return print('Error:${e}');
   }
 }
+
+Future getHomePageBeloContent(formData) async {
+  try {
+    print('开始获取下拉数据...');
+    Response response;
+    Dio dio = new Dio();
+    dio.options.contentType =
+        ContentType.parse('application/x-www-form-urlencoded');
+    if (formData == null) {
+      response = await dio.post(servicePath['homePageBelowConten']);
+    } else {
+      response =
+          await dio.post(servicePath['homePageBelowConten'], data: formData);
+    }
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      throw Exception('后端接口出现异常');
+    }
+  } catch (e) {
+    return print('ERROR:====>${e}');
+  }
+}

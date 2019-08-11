@@ -6,7 +6,7 @@ class TextConstant{
   static List bottomTabs = [
     Icon(CupertinoIcons.home),
     Icon(CupertinoIcons.search),
-    Icon(CupertinoIcons.profile_circled),
+    Icon(CupertinoIcons.shopping_cart),
     Icon(CupertinoIcons.profile_circled),
   ];
 }

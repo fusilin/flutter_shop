@@ -8,8 +8,7 @@ import 'package:flutter_shop/pages/category_page.dart';
 import 'package:flutter_shop/pages/cart_page.dart';
 import 'package:flutter_shop/pages/member_page.dart';
 
-
-final double _TabTextSize = ScreenUtil.getInstance().setSp(22.0);
+final double _tabTextSize = ScreenUtil.getInstance().setSp(22.0);
 
 class IndexPage extends StatefulWidget {
   @override
@@ -18,10 +17,10 @@ class IndexPage extends StatefulWidget {
 
 class _IndexPageState extends State<IndexPage> {
   final tabTextStyleNormal =
-      new TextStyle(color: ColorConstant.textLight, fontSize: _TabTextSize);
+      new TextStyle(color: ColorConstant.textLight, fontSize: _tabTextSize);
   final tabTextStyleSelected = new TextStyle(
       color: ColorConstant.theme,
-      fontSize: _TabTextSize,
+      fontSize: _tabTextSize,
       fontWeight: FontWeight.w600);
   int _currentIndex = 0;
 
