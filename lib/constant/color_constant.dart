@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class ColorConstant {
   // 背景颜色
 //  static const Color theme = Color.fromARGB(255, 250, 220, 76);
-  static const Color theme = Colors.pink;
+//  static const Color theme = Colors.pink;
+  static const Color theme = Color(0xff4E8CEE);
 
   /// 白色
   static const Color black = Color.fromARGB(255, 0, 0, 0);

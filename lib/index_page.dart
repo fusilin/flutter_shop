@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_shop/constant/index.dart';
 import 'package:flutter_shop/pages/home/home_page.dart';
-import 'package:flutter_shop/pages/category_page.dart';
+import 'package:flutter_shop/pages/category/category_page.dart';
 import 'package:flutter_shop/pages/cart_page.dart';
 import 'package:flutter_shop/pages/member_page.dart';
 

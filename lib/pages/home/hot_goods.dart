@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../../constant/index.dart';
 
 class HotGoods extends StatelessWidget {
   final List hotGoodsList;
@@ -53,7 +54,8 @@ class HotGoods extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: Colors.pink, fontSize: ScreenUtil().setSp(26)),
+                        color: ColorConstant.theme,
+                        fontSize: ScreenUtil().setSp(26)),
                   ),
                   Row(
                     children: <Widget>[
