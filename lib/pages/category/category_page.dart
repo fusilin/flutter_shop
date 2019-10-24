@@ -5,6 +5,8 @@ import './category.dart';
 import '../../provider/counter_model.dart';
 import 'package:provider/provider.dart';
 import './next_category.dart';
+import 'package:fluro/fluro.dart';
+import 'package:flutter_shop/routers/routes.dart';
 
 class CategoryPage extends StatefulWidget {
   _CategoryPage createState() => _CategoryPage();
@@ -40,8 +42,17 @@ class _CategoryPage extends State<CategoryPage> {
               Text('${Provider.of<CounterModel>(context).count}'),
               RaisedButton(
                 onPressed: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => NextCategory()));
+                  Routes.router
+                      .navigateTo(
+                    context, '${Routes.nextCategory}?todo=testTODO',
+//                    transition: TransitionType.inFromRight,
+                    transition: TransitionType.cupertino
+                  )
+                      .then((result) {
+                    print('------:' + result);
+                  });
+//                  Navigator.of(context)
+//                      .push(MaterialPageRoute(builder: (_) => NextCategory()));
                 },
                 child: Text('进入子页'),
               ),

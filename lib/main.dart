@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/constant/index.dart';
-import 'package:flutter_shop/config.dart';
-import './provider/counter_model.dart';
+import 'package:flutter_shop/provider/counter_model.dart';
 import 'package:provider/provider.dart';
+import 'package:fluro/fluro.dart';
+import 'package:flutter_shop/routers/routes.dart';
 
 void main() {
+  final router = new Router();
+  Routes.configureRoutes(router);
   final counter = CounterModel();
   runApp(MultiProvider(
     providers: [
@@ -14,8 +17,8 @@ void main() {
   ));
 //  runApp(Provider<dynamic>.value(
 //    child: ChangeNotifierProvider.value(
-//      value: counter,
-//      child: MyApp(),
+////      value: counter,
+////      child: MyApp(),
 //    ),
 //  ));
 }
@@ -28,7 +31,8 @@ class MyApp extends StatelessWidget {
         title: '百姓生活家app',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primaryColor: ColorConstant.theme),
-        home: Config(),
+//        home: Config(),
+        onGenerateRoute: Routes.router.generator,
       ),
     );
   }

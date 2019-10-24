@@ -3,6 +3,10 @@ import 'package:provider/provider.dart';
 import '../../provider/counter_model.dart';
 
 class NextCategory extends StatelessWidget {
+  final todo;
+
+  NextCategory({Key key, this.todo}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(

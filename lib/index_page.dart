@@ -7,6 +7,7 @@ import 'package:flutter_shop/pages/home/home_page.dart';
 import 'package:flutter_shop/pages/category/category_page.dart';
 import 'package:flutter_shop/pages/cart_page.dart';
 import 'package:flutter_shop/pages/member_page.dart';
+import 'package:flutter/services.dart';
 
 final double _tabTextSize = ScreenUtil.getInstance().setSp(22.0);
 
@@ -26,6 +27,8 @@ class _IndexPageState extends State<IndexPage> {
 
   @override
   void initState() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
+        .copyWith(statusBarIconBrightness: Brightness.light));
     super.initState();
   }
 
