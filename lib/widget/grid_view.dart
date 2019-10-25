@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class GirdView extends StatelessWidget {
   final List navigatorList;
@@ -9,7 +10,7 @@ class GirdView extends StatelessWidget {
   Widget _gridViewItemUI(BuildContext context, item) {
     return InkWell(
       onTap: () {
-        print('点击');
+        Fluttertoast.showToast(msg: item['mallCategoryName']);
       },
       child: Column(
         children: <Widget>[

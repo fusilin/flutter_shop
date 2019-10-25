@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../../constant/index.dart';
+import 'package:fluro/fluro.dart';
+import 'package:flutter_shop/routers/routes.dart';
 
 class HotGoods extends StatelessWidget {
   final List hotGoodsList;
@@ -12,7 +13,7 @@ class HotGoods extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
-        children: <Widget>[_hotTitle(), _wrapList()],
+        children: <Widget>[_hotTitle(), _wrapList(context)],
       ),
     );
   }
@@ -31,12 +32,14 @@ class HotGoods extends StatelessWidget {
   }
 
   // 火爆专区子项
-  Widget _wrapList() {
+  Widget _wrapList(context) {
     if (hotGoodsList.length != 0) {
       List<Widget> listWidget = hotGoodsList.map((val) {
         return InkWell(
             onTap: () {
-              Fluttertoast.showToast(msg: '火爆专区点击待完善');
+//              Fluttertoast.showToast(msg: '火爆专区点击待完善');
+              Routes.router.navigateTo(context, '${Routes.nextHome}',
+                  transition: TransitionType.cupertino);
             },
             child: Container(
               width: ScreenUtil().setWidth(372),

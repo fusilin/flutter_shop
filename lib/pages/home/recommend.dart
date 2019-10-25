@@ -50,7 +50,9 @@ class Recommend extends StatelessWidget {
   Widget _item(index) {
     return InkWell(
       onTap: () {
-        Fluttertoast.showToast(msg: '待完善', toastLength: Toast.LENGTH_SHORT);
+        Fluttertoast.showToast(
+            msg: recommendList[index]['goodsName'],
+            toastLength: Toast.LENGTH_SHORT);
       },
       child: Container(
         width: ScreenUtil().setWidth(250),

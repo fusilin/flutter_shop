@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_shop/provider/child_category.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RightCategoryNav extends StatelessWidget {
   @override
@@ -27,7 +28,9 @@ class RightCategoryNav extends StatelessWidget {
 
   Widget _rightInkWel(dynamic item) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Fluttertoast.showToast(msg: item['mallSubName']);
+      },
       child: Container(
         padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
         child: Text(

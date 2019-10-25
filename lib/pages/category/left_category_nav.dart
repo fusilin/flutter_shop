@@ -7,13 +7,15 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flutter_shop/provider/child_category.dart';
 import 'package:provider/provider.dart';
 
+import 'package:flutter_shop/constant/color_constant.dart';
+
 class LeftCategoryNav extends StatefulWidget {
   _LeftCategoryNavState createState() => _LeftCategoryNavState();
 }
 
 class _LeftCategoryNavState extends State<LeftCategoryNav> {
   List list = [];
-  var listIndex = 0; // 索引
+  int listIndex = 0; // 索引
 
   @override
   void initState() {
@@ -61,6 +63,9 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
         onTap: () {
           var childList = list[index].bxMallSubDto;
           childCategory.getChildCategory(childList);
+          setState(() {
+            listIndex = index;
+          });
         },
         child: Container(
           height: ScreenUtil().setHeight(100),
@@ -71,7 +76,11 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
                   Border(bottom: BorderSide(width: 1, color: Colors.black12))),
           child: Text(
             list.length != 0 ? list[index].mallCategoryName : '',
-            style: TextStyle(fontSize: ScreenUtil().setSp(28)),
+            style: TextStyle(
+                fontSize: ScreenUtil().setSp(28),
+                color: listIndex == index
+                    ? ColorConstant.theme
+                    : ColorConstant.black),
           ),
         ),
       );
