@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/pages/category/category.dart';
 
 class ChildCategory with ChangeNotifier {
-  List childCategoryList = [];
+  List _childCategoryList = [];
 
-  getChildCategory(List list) {
-    childCategoryList = list;
+  get childCategoryList => _childCategoryList;
+
+  void getChildCategory(list) {
+    print(998888888);
+    print(list);
+    _childCategoryList = list;
     notifyListeners();
   }
 }

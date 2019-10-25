@@ -1,41 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_shop/provider/child_category.dart';
 
-class RightCategoryNav extends StatefulWidget {
-  _RightCategoryNavState createState() => _RightCategoryNavState();
-}
-
-class _RightCategoryNavState extends State<RightCategoryNav> {
-  List list = ['名酒', '宝丰', '北京二锅头'];
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class RightCategoryNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: ScreenUtil().setHeight(80),
+        margin: EdgeInsets.only(bottom: 10),
+        height: ScreenUtil().setHeight(1034),
         width: ScreenUtil().setWidth(570),
         decoration: BoxDecoration(
             border: Border(right: BorderSide(width: 1, color: Colors.black12))),
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: list.length,
-          itemBuilder: (context, index) {
-            return _rightInkWel(list[index]);
-          },
-        ));
+        child: Consumer<ChildCategory>(builder: (context, childCategory, _) {
+          return ListView.builder(
+//            scrollDirection: Axis.horizontal,
+            itemCount: childCategory.childCategoryList.length,
+            itemBuilder: (context, index) {
+              return _rightInkWel(childCategory.childCategoryList.length == 0
+                  ? null
+                  : childCategory.childCategoryList[index]);
+            },
+          );
+        }));
   }
 
-  Widget _rightInkWel(String item) {
+  Widget _rightInkWel(dynamic item) {
     return InkWell(
       onTap: () {},
       child: Container(
         padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
         child: Text(
-          item,
+          item == null ? '' : item['mallSubName'],
           style: TextStyle(fontSize: ScreenUtil().setSp(28)),
         ),
       ),

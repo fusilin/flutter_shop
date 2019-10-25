@@ -4,6 +4,8 @@ import 'package:flutter_shop/pages/member/category.dart';
 import 'package:flutter_shop/service/service_method.dart';
 import 'dart:convert';
 import 'package:common_utils/common_utils.dart';
+import 'package:flutter_shop/provider/child_category.dart';
+import 'package:provider/provider.dart';
 
 class LeftCategoryNav extends StatefulWidget {
   _LeftCategoryNavState createState() => _LeftCategoryNavState();
@@ -22,11 +24,15 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
   _getCategory() async {
     await request('getCategory').then((val) {
       var data = json.decode(val.toString());
-      print('973247878247487');
-//      print(data['data']);
       LogUtil.v(data);
       CategoryBigListModel category =
           CategoryBigListModel.formJson(data['data']);
+      // 不生效
+//      Consumer<ChildCategory>(builder: (context, childCategory, child) {
+//        childCategory.getChildCategory(category.data[0].bxMallSubDto);
+//      });
+      Provider.of<ChildCategory>(context)
+          .getChildCategory(category.data[0].bxMallSubDto);
       setState(() {
         list = category.data;
       });
@@ -50,21 +56,25 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
   }
 
   Widget _leftInkWel(int index) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        height: ScreenUtil().setHeight(100),
-        alignment: Alignment.center,
-//        padding: EdgeInsets.only(left: 10, top: 20),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border:
-                Border(bottom: BorderSide(width: 1, color: Colors.black12))),
-        child: Text(
-          list.length != 0 ? list[index].mallCategoryName : '',
-          style: TextStyle(fontSize: ScreenUtil().setSp(28)),
+    return Consumer<ChildCategory>(builder: (context, childCategory, child) {
+      return InkWell(
+        onTap: () {
+          var childList = list[index].bxMallSubDto;
+          childCategory.getChildCategory(childList);
+        },
+        child: Container(
+          height: ScreenUtil().setHeight(100),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border:
+                  Border(bottom: BorderSide(width: 1, color: Colors.black12))),
+          child: Text(
+            list.length != 0 ? list[index].mallCategoryName : '',
+            style: TextStyle(fontSize: ScreenUtil().setSp(28)),
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
