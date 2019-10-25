@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/constant/index.dart';
 import 'package:flutter_shop/provider/counter_model.dart';
+import 'package:flutter_shop/provider/child_category.dart';
 import 'package:provider/provider.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter_shop/routers/routes.dart';
@@ -9,9 +10,11 @@ void main() {
   final router = new Router();
   Routes.configureRoutes(router);
   final counter = CounterModel();
+  final childCategory = ChildCategory();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider.value(value: counter),
+      ChangeNotifierProvider.value(value: childCategory),
     ],
     child: MyApp(),
   ));

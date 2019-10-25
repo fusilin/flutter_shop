@@ -77,24 +77,24 @@ class _HomePage extends State<HomePage> {
             }
 
             String advertesPicture =
-            data['data']['advertesPicture']['PICTURE_ADDRESS']; //广告图片
+                data['data']['advertesPicture']['PICTURE_ADDRESS']; //广告图片
             String leaderImage = data['data']['shopInfo']['leaderImage']; //店长图片
             String leaderPhone = data['data']['shopInfo']['leaderPhone']; //店长电话
             List<Map> recommendList =
-            (data['data']['recommend'] as List).cast();
+                (data['data']['recommend'] as List).cast();
 
             String floor1Title =
-            data['data']['floor1Pic']['PICTURE_ADDRESS']; //楼层1的标题图片
+                data['data']['floor1Pic']['PICTURE_ADDRESS']; //楼层1的标题图片
             String floor2Title =
-            data['data']['floor2Pic']['PICTURE_ADDRESS']; //楼层1的标题图片
+                data['data']['floor2Pic']['PICTURE_ADDRESS']; //楼层1的标题图片
             String floor3Title =
-            data['data']['floor3Pic']['PICTURE_ADDRESS']; //楼层1的标题图片
+                data['data']['floor3Pic']['PICTURE_ADDRESS']; //楼层1的标题图片
             List<Map> floor1 =
-            (data['data']['floor1'] as List).cast(); //楼层1商品和图片
+                (data['data']['floor1'] as List).cast(); //楼层1商品和图片
             List<Map> floor2 =
-            (data['data']['floor2'] as List).cast(); //楼层1商品和图片
+                (data['data']['floor2'] as List).cast(); //楼层1商品和图片
             List<Map> floor3 =
-            (data['data']['floor3'] as List).cast(); //楼层1商品和图片
+                (data['data']['floor3'] as List).cast(); //楼层1商品和图片
 
             return EasyRefresh(
               child: ListView(

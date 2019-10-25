@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../provider/counter_model.dart';
+import 'package:flutter_shop/provider/counter_model.dart';
 
 class NextCategory extends StatelessWidget {
   final todo;

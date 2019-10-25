@@ -5,8 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/constant/index.dart';
 import 'package:flutter_shop/pages/home/home_page.dart';
 import 'package:flutter_shop/pages/category/category_page.dart';
-import 'package:flutter_shop/pages/cart_page.dart';
-import 'package:flutter_shop/pages/member_page.dart';
+import 'package:flutter_shop/pages/cart/cart_page.dart';
+import 'package:flutter_shop/pages/member/member_page.dart';
 import 'package:flutter/services.dart';
 
 final double _tabTextSize = ScreenUtil.getInstance().setSp(22.0);
