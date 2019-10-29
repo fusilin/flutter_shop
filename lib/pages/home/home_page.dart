@@ -63,7 +63,10 @@ class _HomePage extends State<HomePage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(title: Text('首页')),
+      appBar: AppBar(
+        title: Text('首页'),
+        elevation: 0.0,
+      ),
 //      body: SingleChildScrollView(child: Text(homePageContent)),
       body: FutureBuilder(
         future: getHomePageContent(),
