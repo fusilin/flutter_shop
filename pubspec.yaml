@@ -29,7 +29,7 @@ dependencies:
   # 拨打电话
   url_launcher: ^5.1.2
   # 弱提示
-  fluttertoast: ^3.1.0
+  oktoast: ^2.2.0
   # 刷新
   flutter_easyrefresh: ^2.0.2
   # 状态管理
