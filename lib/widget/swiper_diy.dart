@@ -14,8 +14,25 @@ class SwiperDiy extends StatelessWidget {
         child: Swiper(
           itemCount: 3,
           itemBuilder: (BuildContext context, int index) {
-            return Image.network('${swiperDataList[index]['image']}',
-                fit: BoxFit.cover);
+            return InkWell(
+                onTap: () {
+                  return Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text('轮播图${index + 1}'),
+                    backgroundColor: Color(0xff5B973C),
+                    shape: ShapeBorder.lerp(
+                        null,
+//                          Border(top: BorderSide(color: Colors.red, width: 2)),
+                        Border(
+                            bottom: BorderSide(color: Colors.black, width: 2)),
+                        2),
+                    action: SnackBarAction(
+                      label: 'test',
+                      onPressed: () {},
+                    ),
+                  ));
+                },
+                child: Image.network('${swiperDataList[index]['image']}',
+                    fit: BoxFit.cover));
           },
           autoplay: true,
           pagination: SwiperPagination(),

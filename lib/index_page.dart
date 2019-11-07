@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_shop/constant/index.dart';
-import 'package:flutter_shop/pages/home/home_page.dart';
-import 'package:flutter_shop/pages/category/category_page.dart';
-import 'package:flutter_shop/pages/cart/cart_page.dart';
+import 'package:flutter_shop/pages/home/pages/home_page.dart';
+import 'package:flutter_shop/pages/category/pages/category_page.dart';
+import 'package:flutter_shop/pages/cart/pages/cart_page.dart';
 import 'package:flutter_shop/pages/member/member_page.dart';
 import 'package:flutter/services.dart';
 

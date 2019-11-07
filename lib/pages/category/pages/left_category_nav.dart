@@ -1,43 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_shop/pages/member/category.dart';
 import 'package:flutter_shop/service/service_method.dart';
 import 'dart:convert';
-import 'package:common_utils/common_utils.dart';
 import 'package:flutter_shop/provider/child_category.dart';
+import 'package:flutter_shop/provider/category_goods_list.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_shop/model/categoryGoodsList.dart';
 import 'package:flutter_shop/constant/color_constant.dart';
 
 class LeftCategoryNav extends StatefulWidget {
+  final List list;
+
+  LeftCategoryNav({Key key, this.list}) : super(key: key);
+
   _LeftCategoryNavState createState() => _LeftCategoryNavState();
 }
 
 class _LeftCategoryNavState extends State<LeftCategoryNav> {
-  List list = [];
+  var pageStatus = 'loading';
+
   int listIndex = 0; // 索引
 
   @override
   void initState() {
     super.initState();
-    _getCategory();
   }
 
-  _getCategory() async {
-    await request('getCategory').then((val) {
-      var data = json.decode(val.toString());
-      LogUtil.v(data);
-      CategoryBigListModel category =
-          CategoryBigListModel.formJson(data['data']);
-      // 不生效
-//      Consumer<ChildCategory>(builder: (context, childCategory, child) {
-//        childCategory.getChildCategory(category.data[0].bxMallSubDto);
-//      });
-      Provider.of<ChildCategory>(context)
-          .getChildCategory(category.data[0].bxMallSubDto);
-      setState(() {
-        list = category.data;
-      });
+  _getGoodList({String categoryId}) async {
+    Provider.of<CategoryGoodsListProvider>(context)
+        .setGoodsListPageStatus('loading');
+    var _categoryId = categoryId == null ? '4' : categoryId;
+    var params = {'categoryId': _categoryId, 'categorySubId': '', 'page': 1};
+    await request('getMallGoods', formData: params).then((result) {
+      var data = json.decode(result.toString());
+      if (result.statusCode == 200) {
+        CategoryGoodsListModel goodsList =
+            CategoryGoodsListModel.fromJson(data);
+        Provider.of<CategoryGoodsListProvider>(context)
+            .getGoodsList(goodsList.data, _categoryId, 1, false, 'success');
+      } else {}
     });
   }
 
@@ -50,7 +51,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
         right: BorderSide(width: 1, color: Colors.black12),
       )),
       child: ListView.builder(
-          itemCount: list.length,
+          itemCount: widget.list.length,
           itemBuilder: (context, index) {
             return _leftInkWel(index);
           }),
@@ -58,14 +59,17 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
   }
 
   Widget _leftInkWel(int index) {
-    return Consumer<ChildCategory>(builder: (context, childCategory, child) {
+    return Consumer2<ChildCategory, CategoryGoodsListProvider>(
+        builder: (context, data1, data2, child) {
       return InkWell(
         onTap: () {
-          var childList = list[index].bxMallSubDto;
-          childCategory.getChildCategory(childList);
+          var childList = widget.list[index].bxMallSubDto;
+          var categoryId = widget.list[index].mallCategoryId;
           setState(() {
             listIndex = index;
           });
+          data1.getChildCategory(childList);
+          _getGoodList(categoryId: categoryId);
         },
         child: Container(
           height: ScreenUtil().setHeight(100),
@@ -75,7 +79,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
               border:
                   Border(bottom: BorderSide(width: 1, color: Colors.black12))),
           child: Text(
-            list.length != 0 ? list[index].mallCategoryName : '',
+            widget.list.length != 0 ? widget.list[index].mallCategoryName : '',
             style: TextStyle(
                 fontSize: ScreenUtil().setSp(28),
                 color: listIndex == index

@@ -3,13 +3,13 @@ import 'dart:core';
 import 'dart:convert';
 import 'package:flutter_shop/service/service_method.dart';
 import 'package:flutter_shop/widget/index.dart';
-import './ad_banner.dart';
-import './leader_phone.dart';
-import './recommend.dart';
-import './floor_title.dart';
-import './floor_content.dart';
-import './hot_goods.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'ad_banner.dart';
+import 'leader_phone.dart';
+import 'recommend.dart';
+import 'floor_title.dart';
+import 'floor_content.dart';
+import 'hot_goods.dart';
 
 class HomePage extends StatefulWidget {
   _HomePage createState() => _HomePage();

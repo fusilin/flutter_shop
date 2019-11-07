@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/provider/counter_model.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_shop/routers/routes.dart';
-import 'package:fluro/fluro.dart';
+import 'package:flutter_shop/routers/fluro_navigator.dart';
+import '../cart_router.dart';
 
 class CartPage extends StatefulWidget {
   _CartPageState createState() => _CartPageState();
@@ -14,8 +14,7 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       appBar: AppBar(title: Text('购物车'), elevation: 0.0),
       body: RaisedButton(
-        onPressed: () => Routes.router.navigateTo(context, '${Routes.nextCart}',
-            transition: TransitionType.cupertino),
+        onPressed: () => NavigatorUtils.push(context, CartRouter.nextCart),
         child: Text('进入地图页'),
       ),
       floatingActionButton:

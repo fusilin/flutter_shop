@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/constant/index.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:oktoast/oktoast.dart';
 
 class Recommend extends StatelessWidget {
   final List recommendList;
@@ -50,9 +50,13 @@ class Recommend extends StatelessWidget {
   Widget _item(index) {
     return InkWell(
       onTap: () {
-        Fluttertoast.showToast(
-            msg: recommendList[index]['goodsName'],
-            toastLength: Toast.LENGTH_SHORT);
+        showToast(
+          recommendList[index]['goodsName'],
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.black.withOpacity(0.5),
+          position: ToastPosition.bottom,
+          radius: 12.0,
+        );
       },
       child: Container(
         width: ScreenUtil().setWidth(250),

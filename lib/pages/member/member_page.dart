@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/provider/counter_model.dart';
 import 'package:provider/provider.dart';
-import 'package:fluro/fluro.dart';
-import 'package:flutter_shop/routers/routes.dart';
 
 class MemberPage extends StatefulWidget {
   _MemberPageState createState() => _MemberPageState();
@@ -32,14 +30,23 @@ class _MemberPageState extends State<MemberPage> {
               Text('${Provider.of<CounterModel>(context).count}'),
               RaisedButton(
                 onPressed: () {
-                  Routes.router
-                      .navigateTo(
-                          context, '${Routes.nextCategory}?todo=testTODO',
-//                    transition: TransitionType.inFromRight,
-                          transition: TransitionType.cupertino)
-                      .then((result) {
-                    print('------:' + result);
-                  });
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return SimpleDialog(
+                          title: Text('提示'),
+                          children: <Widget>[Text('test')],
+                        );
+                      });
+
+//                  Routes.router
+//                      .navigateTo(
+//                          context, '${Routes.nextCategory}?todo=testTODO',
+////                    transition: TransitionType.inFromRight,
+//                          transition: TransitionType.cupertino)
+//                      .then((result) {
+//                    print('------:' + result);
+//                  });
                 },
                 child: Text('进入子页'),
               ),

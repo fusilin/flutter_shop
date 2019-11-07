@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../constant/index.dart';
+import 'package:flutter_shop/constant/index.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter_shop/routers/routes.dart';
+import 'package:flutter_shop/routers/fluro_navigator.dart';
+import '../home_router.dart';
 
 class HotGoods extends StatelessWidget {
   final List hotGoodsList;
@@ -37,9 +39,7 @@ class HotGoods extends StatelessWidget {
       List<Widget> listWidget = hotGoodsList.map((val) {
         return InkWell(
             onTap: () {
-//              Fluttertoast.showToast(msg: '火爆专区点击待完善');
-              Routes.router.navigateTo(context, '${Routes.nextHome}',
-                  transition: TransitionType.cupertino);
+              NavigatorUtils.push(context, HomeRouter.nextHome);
             },
             child: Container(
               width: ScreenUtil().setWidth(372),
