@@ -10,6 +10,7 @@ import 'recommend.dart';
 import 'floor_title.dart';
 import 'floor_content.dart';
 import 'hot_goods.dart';
+import 'package:flutter_shop/widget/loaders/loader.dart';
 
 class HomePage extends StatefulWidget {
   _HomePage createState() => _HomePage();
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePage extends State<HomePage> {
   String homePageContent = '正在获取数据';
+  String pageStatus = 'loading';
   int page = 1;
   List<Map> hotGoodsList = [];
   var isLoading = false;
@@ -31,8 +33,6 @@ class _HomePage extends State<HomePage> {
   // 请求数据
   _getDataAction() {
     getHomePageContent().then((result) {
-      print('----------------------');
-      print(result);
       setState(() {
         homePageContent:
         result.toString();
@@ -48,14 +48,21 @@ class _HomePage extends State<HomePage> {
       isLoading = true;
     });
     var formPage = {'page': page};
-    getHomePageBeloContent(formPage).then((val) {
-      var data = json.decode(val.toString());
-      List<Map> newGoodsList = (data['data'] as List).cast();
-      setState(() {
-        hotGoodsList.addAll(newGoodsList);
-        isLoading = false;
-        page++;
-      });
+    getHomePageBeloContent(formPage).then((result) {
+      var data = json.decode(result.toString());
+      if (result.statusCode == 200) {
+        List<Map> newGoodsList = (data['data'] as List).cast();
+        setState(() {
+          hotGoodsList.addAll(newGoodsList);
+          isLoading = false;
+          pageStatus = 'success';
+          page++;
+        });
+      } else {
+        setState(() {
+          pageStatus = 'error';
+        });
+      }
     });
   }
 
@@ -71,7 +78,9 @@ class _HomePage extends State<HomePage> {
       body: FutureBuilder(
         future: getHomePageContent(),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
+          if (pageStatus == 'error') {
+            return Center(child: Text('服务器异常，请稍后再试'));
+          } else if (pageStatus == 'success' && snapshot.hasData) {
             var data = json.decode(snapshot.data.toString());
             List<Map> swiper = (data['data']['slides'] as List).cast();
             List<Map> navigatorList = (data['data']['category'] as List).cast();
@@ -126,9 +135,7 @@ class _HomePage extends State<HomePage> {
               },
             );
           } else {
-            return Center(
-              child: Text('数据加载中'),
-            );
+            return ColorLoader();
           }
         },
       ),

@@ -36,11 +36,12 @@ Future getHomePageBeloContent(formData) async {
       response =
           await dio.post(servicePath['homePageBelowConten'], data: formData);
     }
-    if (response.statusCode == 200) {
-      return response.data;
-    } else {
-      throw Exception('后端接口出现异常');
-    }
+    return response;
+//    if (response.statusCode == 200) {
+//      return response.data;
+//    } else {
+//      throw Exception('后端接口出现异常');
+//    }
   } catch (e) {
     return print('ERROR:====>${e}');
   }
