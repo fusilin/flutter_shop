@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class CategoryGoodsListProvider with ChangeNotifier {
   List _goodsList = [];
-  var _categoryId;
+  var _categoryId = '4';
+  var _categorySubId;
   int _page = 1;
   bool _isLoading = false;
   String _pageStatus = 'loading';
@@ -11,23 +12,30 @@ class CategoryGoodsListProvider with ChangeNotifier {
 
   get categoryId => _categoryId;
 
+  get categorySubId => _categorySubId;
+
   get page => _page;
 
   get isLoading => _isLoading;
 
   get pageStatus => _pageStatus;
 
-  void getGoodsList(list, categoryId, page, isLoading, pageStatus) {
-    _goodsList = list;
-    _categoryId = categoryId;
+  void getGoodsList(
+      list, categoryId, categorySubId, page) {
+    _goodsList = list ?? [];
+    _categoryId = categoryId ?? '';
+    _categorySubId = categorySubId ?? '';
     _page = page;
-    _isLoading = isLoading;
-    _pageStatus = pageStatus;
     notifyListeners();
   }
 
   void setGoodsListCategoryId(categoryId) {
     _categoryId = categoryId;
+    notifyListeners();
+  }
+
+  void setGoodsListCategorySubId(categorySubId) {
+    _categorySubId = categorySubId;
     notifyListeners();
   }
 

@@ -31,11 +31,23 @@ class _NextCartState extends State<NextCart> {
                       )
                     ],
                   ),
-                  onRefresh: () {
-                    showToast('下拉刷新');
+                  onRefresh: () async {
+                    showToast(
+                      '下拉刷新',
+                      duration: Duration(seconds: 2),
+                      backgroundColor: Colors.black.withOpacity(0.5),
+                      position: ToastPosition.bottom,
+                      radius: 12.0,
+                    );
                   },
-                  onLoad: () {
-                    showToast('上拉加载');
+                  onLoad: () async {
+                    showToast(
+                      '上拉加载',
+                      duration: Duration(seconds: 2),
+                      backgroundColor: Colors.black.withOpacity(0.5),
+                      position: ToastPosition.bottom,
+                      radius: 12.0,
+                    );
                   },
                 ),
               )

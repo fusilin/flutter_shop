@@ -45,6 +45,8 @@ dependencies:
   #      path: base
   # 日志打印
   common_utils: ^1.1.3
+  # 极光推送
+  jpush_flutter: 0.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

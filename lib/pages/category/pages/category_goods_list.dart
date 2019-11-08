@@ -15,7 +15,7 @@ class CategoryGoodsList extends StatefulWidget {
 }
 
 class _CategoryGoodsListState extends State<CategoryGoodsList> {
-  final scrollController = new ScrollController();
+  ScrollController _scrollController = new ScrollController();
   final easyRefreshController = new EasyRefreshController();
 
   @override
@@ -23,53 +23,91 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
     super.initState();
   }
 
-  _fetchData({bool isRefresh}) async {
+  _refreshData() async {
     var categoryGoodsListProvider =
         Provider.of<CategoryGoodsListProvider>(context);
     var _categoryId = categoryGoodsListProvider.categoryId;
-    List _list = categoryGoodsListProvider.goodsList;
-    int _page = isRefresh ? 1 : categoryGoodsListProvider.page;
+    var _categorySubId = categoryGoodsListProvider.categorySubId;
     bool _isLoading = categoryGoodsListProvider.isLoading;
-    if (_categoryId != null && _isLoading) {
+    if (_isLoading) {
       return null;
     }
     categoryGoodsListProvider.setGoodsListIsLoading(true);
     var params = {
       'categoryId': _categoryId,
-      'categorySubId': '',
-      'page': isRefresh ? _page : _page++
+      'categorySubId': _categorySubId,
+      'page': 1
     };
     await request('getMallGoods', formData: params).then((result) {
       var data = json.decode(result.toString());
       if (result.statusCode == 200) {
         CategoryGoodsListModel goodsList =
             CategoryGoodsListModel.fromJson(data);
-        if (_categoryId == null) {
-          _list = goodsList.data;
-        } else {
-          _list.addAll(goodsList.data);
-        }
-
-        easyRefreshController.finishRefresh(success: true, noMore: false);
-        easyRefreshController.finishLoad(success: true, noMore: false);
+        List _list = goodsList.data ?? [];
         categoryGoodsListProvider.getGoodsList(
-            _list, _categoryId, _page++, false, 'success');
+            _list, _categoryId, _categorySubId, 1);
+        easyRefreshController.finishRefresh(success: true, noMore: false);
+        categoryGoodsListProvider.setGoodsListPageStatus('success');
       } else {
         categoryGoodsListProvider.setGoodsListPageStatus('error');
+        easyRefreshController.finishRefresh(success: false, noMore: false);
       }
+      categoryGoodsListProvider.setGoodsListIsLoading(false);
+    });
+  }
+
+  _loadData() async {
+    var categoryGoodsListProvider =
+        Provider.of<CategoryGoodsListProvider>(context);
+    var _categoryId = categoryGoodsListProvider.categoryId;
+    var _categorySubId = categoryGoodsListProvider.categorySubId;
+    List _list = categoryGoodsListProvider.goodsList;
+    int _page = categoryGoodsListProvider.page;
+    bool _isLoading = categoryGoodsListProvider.isLoading;
+    if (_isLoading) {
+      return null;
+    }
+    categoryGoodsListProvider.setGoodsListIsLoading(true);
+    var params = {
+      'categoryId': _categoryId,
+      'categorySubId': _categorySubId,
+      'page': _page + 1
+    };
+    print(444444);
+    print(params);
+    await request('getMallGoods', formData: params).then((result) {
+      var data = json.decode(result.toString());
+      if (result.statusCode == 200) {
+        CategoryGoodsListModel goodsList =
+            CategoryGoodsListModel.fromJson(data);
+        var _data = goodsList.data ?? [];
+        _list.addAll(_data);
+        categoryGoodsListProvider.getGoodsList(_list, _categoryId,
+            _categorySubId, _data.length == 0 ? _page : _page + 1);
+        easyRefreshController.finishLoad(
+            success: true, noMore: _data.length == 0 ? true : false);
+        categoryGoodsListProvider.setGoodsListPageStatus('success');
+      } else {
+        easyRefreshController.finishLoad(success: false, noMore: false);
+        categoryGoodsListProvider.setGoodsListPageStatus('error');
+      }
+      categoryGoodsListProvider.setGoodsListIsLoading(false);
     });
   }
 
   @override
   didChangeDependencies() {
     super.didChangeDependencies();
-    try {
-      if (Provider.of<CategoryGoodsListProvider>(context).page == 1) {
-        scrollController.jumpTo(0.0);
-      }
-    } catch (e) {
-      print('进入页面第一次初始化：${e}');
-    }
+//    try {
+//      if (Provider.of<CategoryGoodsListProvider>(context).page == 1 &&
+//          _scrollController != null &&
+//          _scrollController.initialScrollOffset != 0.0) {
+//        print(222211111);
+//        _scrollController?.jumpTo(0.0);
+//      }
+//    } catch (e) {
+//      print('CategoryGoodsList：${e}');
+//    }
   }
 
   Widget _listWidget(list, index) {
@@ -129,6 +167,18 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
 
   @override
   Widget build(BuildContext context) {
+//    WidgetsBinding.instance.addPostFrameCallback((_) {
+//      try {
+//        if (Provider.of<CategoryGoodsListProvider>(context).page == 1 &&
+//            _scrollController != null &&
+//            _scrollController.jumpTo != null) {
+//          print(222211111);
+//          _scrollController.initialScrollOffset;
+//        }
+//      } catch (e) {
+//        print('CategoryGoodsList：${e}');
+//      }
+//    });
     return Consumer<CategoryGoodsListProvider>(builder: (context, data, _) {
       if (data.goodsList.length > 0) {
         return Container(
@@ -140,18 +190,18 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
                     header: RefreshHelper.header,
                     footer: RefreshHelper.footer,
                     child: ListView.builder(
-                      controller: scrollController,
+                      controller: _scrollController,
                       itemCount: data.goodsList.length,
                       itemBuilder: (context, index) {
                         return _listWidget(data.goodsList, index);
                       },
                     ),
-                    onRefresh: () async {
-                      _fetchData(isRefresh: true);
-                    },
                     enableControlFinishRefresh: true,
+                    onRefresh: () async {
+                      _refreshData();
+                    },
                     onLoad: () async {
-                      _fetchData(isRefresh: false);
+                      _loadData();
                     },
                   ));
       } else {

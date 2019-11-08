@@ -7,8 +7,8 @@ class ChildCategory with ChangeNotifier {
 
   void getChildCategory(list) {
     Map<String, dynamic> all = {};
-    all['mallSubId'] = '00';
-    all['mallCategoryId'] = '00';
+    all['mallSubId'] = '';
+    all['mallCategoryId'] = '';
     all['mallSubName'] = '全部';
     all['comments'] = 'null';
     _childCategoryList = [all];

@@ -47,16 +47,27 @@ class _CategoryPage extends State<CategoryPage> {
   }
 
   _getGoodList({String categoryId}) async {
-    var _categoryId = categoryId == null ? '4' : categoryId;
-    var params = {'categoryId': _categoryId, 'categorySubId': '', 'page': 1};
+    var categoryGoodsListProvider =
+        Provider.of<CategoryGoodsListProvider>(context);
+    var _categoryId = categoryId ?? categoryGoodsListProvider.categoryId;
+    var _categorySubId = categoryGoodsListProvider.categorySubId;
+    var params = {
+      'categoryId': _categoryId,
+      'categorySubId': _categorySubId,
+      'page': 1
+    };
     await request('getMallGoods', formData: params).then((result) {
       var data = json.decode(result.toString());
       if (result.statusCode == 200) {
         CategoryGoodsListModel goodsList =
             CategoryGoodsListModel.fromJson(data);
-        Provider.of<CategoryGoodsListProvider>(context)
-            .getGoodsList(goodsList.data, _categoryId, 1, false, 'success');
-      } else {}
+        categoryGoodsListProvider.getGoodsList(
+            goodsList.data, _categoryId, _categorySubId, 1);
+        categoryGoodsListProvider.setGoodsListPageStatus('success');
+      } else {
+        categoryGoodsListProvider.setGoodsListPageStatus('error');
+      }
+      categoryGoodsListProvider.setGoodsListIsLoading(false);
     });
   }
 

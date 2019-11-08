@@ -27,18 +27,28 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
   }
 
   _getGoodList({String categoryId}) async {
-    Provider.of<CategoryGoodsListProvider>(context)
-        .setGoodsListPageStatus('loading');
-    var _categoryId = categoryId == null ? '4' : categoryId;
-    var params = {'categoryId': _categoryId, 'categorySubId': '', 'page': 1};
+    var categoryGoodsListProvider =
+        Provider.of<CategoryGoodsListProvider>(context);
+    categoryGoodsListProvider.setGoodsListPageStatus('loading');
+    var _categoryId = categoryId ?? categoryGoodsListProvider.categoryId;
+    var _categorySubId = '';
+    var params = {
+      'categoryId': _categoryId,
+      'categorySubId': _categorySubId,
+      'page': 1
+    };
     await request('getMallGoods', formData: params).then((result) {
       var data = json.decode(result.toString());
       if (result.statusCode == 200) {
         CategoryGoodsListModel goodsList =
             CategoryGoodsListModel.fromJson(data);
-        Provider.of<CategoryGoodsListProvider>(context)
-            .getGoodsList(goodsList.data, _categoryId, 1, false, 'success');
-      } else {}
+        categoryGoodsListProvider.getGoodsList(
+            goodsList.data, _categoryId, _categorySubId, 1);
+        categoryGoodsListProvider.setGoodsListPageStatus('success');
+      } else {
+        categoryGoodsListProvider.setGoodsListPageStatus('error');
+      }
+      categoryGoodsListProvider.setGoodsListIsLoading(false);
     });
   }
 
@@ -63,8 +73,14 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
         builder: (context, data1, data2, child) {
       return InkWell(
         onTap: () {
-          var childList = widget.list[index].bxMallSubDto;
           var categoryId = widget.list[index].mallCategoryId;
+          var categoryGoodsListProvider =
+              Provider.of<CategoryGoodsListProvider>(context);
+          var _categoryId = categoryGoodsListProvider.categoryId;
+          if (categoryId == _categoryId) {
+            return null;
+          }
+          var childList = widget.list[index].bxMallSubDto;
           setState(() {
             listIndex = index;
           });

@@ -4,12 +4,10 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter_shop/routers/routes.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:flutter_shop/routers/application.dart';
-
 import 'package:provider/provider.dart';
 import 'package:flutter_shop/provider/counter_model.dart';
 import 'package:flutter_shop/provider/child_category.dart';
 import 'package:flutter_shop/provider/category_goods_list.dart';
-
 
 void main() {
   final router = new Router();
