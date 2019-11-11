@@ -61,13 +61,13 @@ class _CategoryPage extends State<CategoryPage> {
       if (result.statusCode == 200) {
         CategoryGoodsListModel goodsList =
             CategoryGoodsListModel.fromJson(data);
-        categoryGoodsListProvider.getGoodsList(
+        categoryGoodsListProvider.setCategoryGoodsList(
             goodsList.data, _categoryId, _categorySubId, 1);
-        categoryGoodsListProvider.setGoodsListPageStatus('success');
+        categoryGoodsListProvider.setCategoryGoods(pageStatus: 'success');
       } else {
-        categoryGoodsListProvider.setGoodsListPageStatus('error');
+        categoryGoodsListProvider.setCategoryGoods(pageStatus: 'error');
       }
-      categoryGoodsListProvider.setGoodsListIsLoading(false);
+      categoryGoodsListProvider.setCategoryGoods(isLoading: false);
     });
   }
 

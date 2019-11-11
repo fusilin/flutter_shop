@@ -4,5 +4,6 @@ const servicePath = {
   'homePageContext': serviceUrl + 'wxmini/homePageContent',
   'homePageBelowConten': serviceUrl + 'wxmini/homePageBelowConten', //商城首页热卖商品拉取
   'getCategory': serviceUrl + 'wxmini/getCategory', //商品类别信息
-  'getMallGoods': serviceUrl+'wxmini/getMallGoods', //商品分类的商品列表
+  'getMallGoods': serviceUrl + 'wxmini/getMallGoods', //商品分类的商品列表
+  'getGoodDetailById': serviceUrl + 'wxmini/getGoodDetailById', //根据商品ID获取商品详情信息
 };

@@ -26,30 +26,31 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
     super.initState();
   }
 
-  _getGoodList({String categoryId}) async {
+  _getGoodList({context, String categoryId}) async {
     var categoryGoodsListProvider =
         Provider.of<CategoryGoodsListProvider>(context);
-    categoryGoodsListProvider.setGoodsListPageStatus('loading');
-    var _categoryId = categoryId ?? categoryGoodsListProvider.categoryId;
-    var _categorySubId = '';
-    var params = {
-      'categoryId': _categoryId,
-      'categorySubId': _categorySubId,
-      'page': 1
-    };
-    await request('getMallGoods', formData: params).then((result) {
-      var data = json.decode(result.toString());
-      if (result.statusCode == 200) {
-        CategoryGoodsListModel goodsList =
-            CategoryGoodsListModel.fromJson(data);
-        categoryGoodsListProvider.getGoodsList(
-            goodsList.data, _categoryId, _categorySubId, 1);
-        categoryGoodsListProvider.setGoodsListPageStatus('success');
-      } else {
-        categoryGoodsListProvider.setGoodsListPageStatus('error');
-      }
-      categoryGoodsListProvider.setGoodsListIsLoading(false);
-    });
+    categoryGoodsListProvider.getGoodList(context, categoryId);
+//    categoryGoodsListProvider.setGoodsListPageStatus('loading');
+//    var _categoryId = categoryId ?? categoryGoodsListProvider.categoryId;
+//    var _categorySubId = '';
+//    var params = {
+//      'categoryId': _categoryId,
+//      'categorySubId': _categorySubId,
+//      'page': 1
+//    };
+//    await request('getMallGoods', formData: params).then((result) {
+//      var data = json.decode(result.toString());
+//      if (result.statusCode == 200) {
+//        CategoryGoodsListModel goodsList =
+//            CategoryGoodsListModel.fromJson(data);
+//        categoryGoodsListProvider.setCategoryGoodsList(
+//            goodsList.data, _categoryId, _categorySubId, 1);
+//        categoryGoodsListProvider.setGoodsListPageStatus('success');
+//      } else {
+//        categoryGoodsListProvider.setGoodsListPageStatus('error');
+//      }
+//categoryGoodsListProvider.setCategoryGoods(isLoading: false);
+//    });
   }
 
   @override
@@ -85,7 +86,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
             listIndex = index;
           });
           data1.getChildCategory(childList);
-          _getGoodList(categoryId: categoryId);
+          _getGoodList(context: context, categoryId: categoryId);
         },
         child: Container(
           height: ScreenUtil().setHeight(100),

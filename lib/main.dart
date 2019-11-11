@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_shop/provider/counter_model.dart';
 import 'package:flutter_shop/provider/child_category.dart';
 import 'package:flutter_shop/provider/category_goods_list.dart';
+import 'package:flutter_shop/provider/details_info.dart';
 
 void main() {
   final router = new Router();
@@ -16,11 +17,13 @@ void main() {
   final counter = CounterModel();
   final childCategory = ChildCategory();
   final categoryGoodsList = CategoryGoodsListProvider();
+  final detailsInfo = DetailsInfoProvider();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider.value(value: counter),
       ChangeNotifierProvider.value(value: childCategory),
       ChangeNotifierProvider.value(value: categoryGoodsList),
+      ChangeNotifierProvider.value(value: detailsInfo),
     ],
     child: MyApp(),
   ));

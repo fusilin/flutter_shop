@@ -26,18 +26,7 @@ class _HomePage extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _getDataAction();
     _getHotGoods();
-  }
-
-  // 请求数据
-  _getDataAction() {
-    getHomePageContent().then((result) {
-      setState(() {
-        homePageContent:
-        result.toString();
-      });
-    });
   }
 
   _getHotGoods() {
@@ -74,7 +63,6 @@ class _HomePage extends State<HomePage> {
         title: Text('首页'),
         elevation: 0.0,
       ),
-//      body: SingleChildScrollView(child: Text(homePageContent)),
       body: FutureBuilder(
         future: getHomePageContent(),
         builder: (context, snapshot) {

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/routers/fluro_navigator.dart';
 import '../home_router.dart';
+import 'package:flutter_shop/routers/fluro_navigator.dart';
+import 'package:flutter_shop/pages/detail/detail_router.dart';
 
 class FloorContent extends StatelessWidget {
   final List floorGoodsList;
@@ -45,7 +47,8 @@ class FloorContent extends StatelessWidget {
       width: ScreenUtil().setWidth(375),
       child: InkWell(
         onTap: () {
-          NavigatorUtils.push(context, '${HomeRouter.nextHome}');
+          return NavigatorUtils.push(context,
+              DetailRouter.detailsPage + '?goodsId=${goods['goodsId']}');
         },
         child: Image.network(goods['image']),
       ),

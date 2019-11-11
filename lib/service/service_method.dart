@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'dart:io';
 import '../configs/service_url.dart';
-import '../configs/httpHeaders.dart';
 import 'dart:async';
 
 getHomePageContent() async {

@@ -5,6 +5,8 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter_shop/routers/routes.dart';
 import 'package:flutter_shop/routers/fluro_navigator.dart';
 import '../home_router.dart';
+import 'package:flutter_shop/routers/fluro_navigator.dart';
+import 'package:flutter_shop/pages/detail/detail_router.dart';
 
 class HotGoods extends StatelessWidget {
   final List hotGoodsList;
@@ -39,7 +41,8 @@ class HotGoods extends StatelessWidget {
       List<Widget> listWidget = hotGoodsList.map((val) {
         return InkWell(
             onTap: () {
-              NavigatorUtils.push(context, HomeRouter.nextHome);
+              return NavigatorUtils.push(context,
+                  DetailRouter.detailsPage + '?goodsId=${val['goodsId']}');
             },
             child: Container(
               width: ScreenUtil().setWidth(372),

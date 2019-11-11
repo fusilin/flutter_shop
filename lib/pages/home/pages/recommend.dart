@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/constant/index.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:flutter_shop/routers/fluro_navigator.dart';
+import 'package:flutter_shop/pages/detail/detail_router.dart';
 
 class Recommend extends StatelessWidget {
   final List recommendList;
@@ -41,22 +42,19 @@ class Recommend extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: recommendList.length,
         itemBuilder: (context, index) {
-          return _item(index);
+          return _item(index, context);
         },
       ),
     );
   }
 
-  Widget _item(index) {
+  Widget _item(index, context) {
     return InkWell(
       onTap: () {
-        showToast(
-          recommendList[index]['goodsName'],
-          duration: Duration(seconds: 2),
-          backgroundColor: Colors.black.withOpacity(0.5),
-          position: ToastPosition.bottom,
-          radius: 12.0,
-        );
+        return NavigatorUtils.push(
+            context,
+            DetailRouter.detailsPage +
+                '?goodsId=${recommendList[index]['goodsId']}');
       },
       child: Container(
         width: ScreenUtil().setWidth(250),

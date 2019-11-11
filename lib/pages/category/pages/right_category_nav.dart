@@ -61,7 +61,7 @@ class _RightCategoryNavState extends State<RightCategoryNav> {
   _getGoodList({String categorySubId, BuildContext context}) async {
     var categoryGoodsListProvider =
         Provider.of<CategoryGoodsListProvider>(context);
-    categoryGoodsListProvider.setGoodsListPageStatus('loading');
+    categoryGoodsListProvider.setCategoryGoods(pageStatus: 'loading');
     var _categoryId = categoryGoodsListProvider.categoryId;
     var params = {
       'categoryId': _categoryId,
@@ -73,13 +73,13 @@ class _RightCategoryNavState extends State<RightCategoryNav> {
       if (result.statusCode == 200) {
         CategoryGoodsListModel goodsList =
             CategoryGoodsListModel.fromJson(data);
-        categoryGoodsListProvider.getGoodsList(
+        categoryGoodsListProvider.setCategoryGoodsList(
             goodsList.data, _categoryId, categorySubId, 1);
-        categoryGoodsListProvider.setGoodsListPageStatus('success');
+        categoryGoodsListProvider.setCategoryGoods(pageStatus: 'success');
       } else {
-        categoryGoodsListProvider.setGoodsListPageStatus('error');
+        categoryGoodsListProvider.setCategoryGoods(pageStatus: 'error');
       }
-      categoryGoodsListProvider.setGoodsListIsLoading(false);
+      categoryGoodsListProvider.setCategoryGoods(isLoading: false);
     });
   }
 

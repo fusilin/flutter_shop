@@ -9,6 +9,8 @@ import 'package:flutter_shop/service/service_method.dart';
 import 'dart:convert';
 import 'package:flutter_shop/model/categoryGoodsList.dart';
 import 'package:flutter_shop/widget/loaders/loader.dart';
+import 'package:flutter_shop/routers/fluro_navigator.dart';
+import 'package:flutter_shop/pages/detail/detail_router.dart';
 
 class CategoryGoodsList extends StatefulWidget {
   _CategoryGoodsListState createState() => _CategoryGoodsListState();
@@ -32,7 +34,7 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
     if (_isLoading) {
       return null;
     }
-    categoryGoodsListProvider.setGoodsListIsLoading(true);
+    categoryGoodsListProvider.setCategoryGoods(isLoading: true);
     var params = {
       'categoryId': _categoryId,
       'categorySubId': _categorySubId,
@@ -44,15 +46,15 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
         CategoryGoodsListModel goodsList =
             CategoryGoodsListModel.fromJson(data);
         List _list = goodsList.data ?? [];
-        categoryGoodsListProvider.getGoodsList(
+        categoryGoodsListProvider.setCategoryGoodsList(
             _list, _categoryId, _categorySubId, 1);
         easyRefreshController.finishRefresh(success: true, noMore: false);
-        categoryGoodsListProvider.setGoodsListPageStatus('success');
+        categoryGoodsListProvider.setCategoryGoods(pageStatus: 'success');
       } else {
-        categoryGoodsListProvider.setGoodsListPageStatus('error');
+        categoryGoodsListProvider.setCategoryGoods(pageStatus: 'error');
         easyRefreshController.finishRefresh(success: false, noMore: false);
       }
-      categoryGoodsListProvider.setGoodsListIsLoading(false);
+      categoryGoodsListProvider.setCategoryGoods(isLoading: false);
     });
   }
 
@@ -67,7 +69,7 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
     if (_isLoading) {
       return null;
     }
-    categoryGoodsListProvider.setGoodsListIsLoading(true);
+    categoryGoodsListProvider.setCategoryGoods(isLoading: true);
     var params = {
       'categoryId': _categoryId,
       'categorySubId': _categorySubId,
@@ -82,16 +84,16 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
             CategoryGoodsListModel.fromJson(data);
         var _data = goodsList.data ?? [];
         _list.addAll(_data);
-        categoryGoodsListProvider.getGoodsList(_list, _categoryId,
+        categoryGoodsListProvider.setCategoryGoodsList(_list, _categoryId,
             _categorySubId, _data.length == 0 ? _page : _page + 1);
         easyRefreshController.finishLoad(
             success: true, noMore: _data.length == 0 ? true : false);
-        categoryGoodsListProvider.setGoodsListPageStatus('success');
+        categoryGoodsListProvider.setCategoryGoods(pageStatus: 'success');
       } else {
         easyRefreshController.finishLoad(success: false, noMore: false);
-        categoryGoodsListProvider.setGoodsListPageStatus('error');
+        categoryGoodsListProvider.setCategoryGoods(pageStatus: 'error');
       }
-      categoryGoodsListProvider.setGoodsListIsLoading(false);
+      categoryGoodsListProvider.setCategoryGoods(isLoading: false);
     });
   }
 
@@ -112,7 +114,10 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
 
   Widget _listWidget(list, index) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        NavigatorUtils.push(context,
+            DetailRouter.detailsPage + '?goodsId=${list[index].goodsId}');
+      },
       child: Container(
         color: ColorConstant.white,
         child: Row(

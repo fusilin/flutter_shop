@@ -19,7 +19,7 @@ class NavigatorUtils {
         transitionBuilder: transitionBuilder);
   }
 
-  static void goBack(BuildContext context, result) {
+  static void goBack(BuildContext context, {dynamic result}) {
     Navigator.pop(context, result);
   }
 }
