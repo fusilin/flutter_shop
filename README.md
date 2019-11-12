@@ -1,6 +1,7 @@
 # flutter_shop
 
-A new Flutter project.\n
+A new Flutter project.
+
 welcome to joker's world
 
 ## Getting Started
