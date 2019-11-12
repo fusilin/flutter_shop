@@ -6,10 +6,10 @@ class ColorConstant {
 //  static const Color theme = Colors.pink;
   static const Color theme = Color(0xff4E8CEE);
 
-  /// 白色
+  /// 黑色
   static const Color black = Color.fromARGB(255, 0, 0, 0);
 
-  /// 黑色
+  /// 白色
   static const Color white = Color.fromARGB(255, 255, 255, 255);
 
   /// 背景颜色

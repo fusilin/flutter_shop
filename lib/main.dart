@@ -9,8 +9,11 @@ import 'package:flutter_shop/provider/counter_model.dart';
 import 'package:flutter_shop/provider/child_category.dart';
 import 'package:flutter_shop/provider/category_goods_list.dart';
 import 'package:flutter_shop/provider/details_info.dart';
+import 'package:flutter_shop/configs/appUIStyle.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
+  AppUIStyle.appUIStyle();
   final router = new Router();
   Routes.configureRoutes(router);
   Application.router = router;
@@ -35,7 +38,7 @@ class MyApp extends StatelessWidget {
     return OKToast(
       dismissOtherOnShow: true,
       child: MaterialApp(
-        title: '百姓生活家app',
+        title: 'Joker',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primaryColor: ColorConstant.theme),
         onGenerateRoute: Application.router.generator,

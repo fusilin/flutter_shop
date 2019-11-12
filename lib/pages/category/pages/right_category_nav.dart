@@ -22,6 +22,15 @@ class _RightCategoryNavState extends State<RightCategoryNav> {
   @override
   didChangeDependencies() {
     super.didChangeDependencies();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      try {
+        print(1111111);
+        _scrollController?.jumpTo(0.0);
+//        _scrollController.initialScrollOffset;
+      } catch (e) {
+        print('-----RightCategoryNav------：${e}');
+      }
+    });
   }
 
   @override

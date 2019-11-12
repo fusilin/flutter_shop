@@ -11,7 +11,9 @@ class DetailsBottom extends StatelessWidget {
       child: Row(
         children: <Widget>[
           InkWell(
-            onTap: () {},
+            onTap: () {
+
+            },
             child: Container(
               width: ScreenUtil().setWidth(110),
               alignment: Alignment.center,

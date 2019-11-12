@@ -4,12 +4,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/provider/details_info.dart';
 import 'package:flutter_shop/widget/loaders/loader.dart';
 import 'package:flutter_shop/constant/color_constant.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class DetailsTopArea extends StatelessWidget {
   Widget _goodsImage(url) {
-    return Image.network(
-      url,
-      width: ScreenUtil().setWidth(740),
+    return CachedNetworkImage(
+      imageUrl: url,
+      placeholder: (context, _) {
+        return Image.asset(
+          'assets/default_joker.jpg',
+          width: ScreenUtil().setWidth(750),
+          fit: BoxFit.cover,
+        );
+      },
     );
   }
 
@@ -77,7 +84,6 @@ class DetailsTopArea extends StatelessWidget {
       if (goodsInfo != null) {
         return Container(
           color: Colors.white,
-          padding: EdgeInsets.all(2.0),
           child: Column(
             children: <Widget>[
               _goodsImage(goodsInfo.image1),
