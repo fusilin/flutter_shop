@@ -5,6 +5,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_shop/routers/fluro_navigator.dart';
 import 'package:flutter_shop/routers/routes.dart';
 import 'package:flutter_shop/constant/color_constant.dart';
+import 'package:flutter_shop/widget/index.dart' show CustomSwiperPagination;
 
 class SplashPage extends StatefulWidget {
   @override
@@ -75,12 +76,17 @@ class _SplashPageState extends State<SplashPage> {
           ..init(context);
     return Material(
       child: Swiper(
-          itemCount: 3,
-          itemBuilder: (context, index) {
-            return _imageItem(index);
-          },
-          loop: false,
-          autoplay: false),
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return _imageItem(index);
+        },
+        loop: false,
+        autoplay: false,
+//        pagination: SwiperPagination(
+//          builder: SwiperPagination.dots
+//        )
+        pagination: CustomSwiperPagination(),
+      ),
     );
   }
 }
