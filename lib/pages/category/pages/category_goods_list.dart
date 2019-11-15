@@ -75,8 +75,6 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
       'categorySubId': _categorySubId,
       'page': _page + 1
     };
-    print(444444);
-    print(params);
     await request('getMallGoods', formData: params).then((result) {
       var data = json.decode(result.toString());
       if (result.statusCode == 200) {

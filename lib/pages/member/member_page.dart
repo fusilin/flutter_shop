@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/provider/counter_model.dart';
-import 'package:provider/provider.dart';
+import 'package:oktoast/oktoast.dart';
+import 'package:flutter_shop/routers/fluro_navigator.dart';
+import 'package:flutter_shop/pages/cart/cart_router.dart';
+import 'package:fluro/fluro.dart';
 
 class MemberPage extends StatefulWidget {
   _MemberPageState createState() => _MemberPageState();
@@ -17,51 +19,43 @@ class _MemberPageState extends State<MemberPage> {
     super.didChangeDependencies();
   }
 
+  Widget _myListTile(String title) {
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(bottom: BorderSide(width: 1, color: Colors.black12))),
+      child: ListTile(
+        onTap: () {
+          title == '极光推送'
+              ? NavigatorUtils.push(context, CartRouter.jsPush,
+                  transition: TransitionType.inFromRight)
+              : showToast('嗨');
+        },
+        leading: Icon(Icons.blur_circular),
+        title: Text(title),
+        trailing: Icon(Icons.arrow_right),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('会员中心'),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Text('${Provider.of<CounterModel>(context).count}'),
-              RaisedButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return SimpleDialog(
-                          title: Text('提示'),
-                          children: <Widget>[Text('test')],
-                        );
-                      });
-
-//                  Routes.router
-//                      .navigateTo(
-//                          context, '${Routes.nextCategory}?todo=testTODO',
-////                    transition: TransitionType.inFromRight,
-//                          transition: TransitionType.cupertino)
-//                      .then((result) {
-//                    print('------:' + result);
-//                  });
-                },
-                child: Text('进入子页'),
-              ),
-            ],
+          appBar: AppBar(
+            title: Text('会员中心'),
           ),
-        ),
-        floatingActionButton: //使用Consumer包裹
-            Consumer<CounterModel>(
-                builder: (ctx, state, child) => FloatingActionButton(
-                      onPressed: () {
-                        state.add(); //使用其内的state执行方法
-                      },
-                      child: Icon(Icons.add),
-                    )),
-      ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                _myListTile('领取优惠券'),
+                _myListTile('已领取优惠券'),
+                _myListTile('地址管理'),
+                _myListTile('客服电话'),
+                _myListTile('极光推送'),
+              ],
+            ),
+          )),
     );
   }
 }

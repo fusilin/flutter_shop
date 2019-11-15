@@ -5,8 +5,21 @@ class CartInfoMode {
   double price;
   String images;
 
+  //------新添加代码----start
+  bool isCheck;
+
+  //------新添加代码----end
+
   CartInfoMode(
-      {this.goodsId, this.goodsName, this.count, this.price, this.images});
+      //需要修改---------start-----
+      {this.goodsId,
+      this.goodsName,
+      this.count,
+      this.price,
+      this.images,
+      this.isCheck});
+
+  //修改需改--------end------
 
   CartInfoMode.fromJson(Map<String, dynamic> json) {
     goodsId = json['goodsId'];
@@ -14,7 +27,9 @@ class CartInfoMode {
     count = json['count'];
     price = json['price'];
     images = json['images'];
-
+    //------新添加代码----start
+    isCheck = json['isCheck'];
+    //------新添加代码----end
   }
 
   Map<String, dynamic> toJson() {
@@ -24,6 +39,8 @@ class CartInfoMode {
     data['count'] = this.count;
     data['price'] = this.price;
     data['images'] = this.images;
+    //------新添加代码----start
+    data['isCheck'] = this.isCheck;
     return data;
   }
 }

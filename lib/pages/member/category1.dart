@@ -22,7 +22,7 @@ class CategoryBigModel {
 //    }
 
     var list = json['BxMallSubDto'] as List;
-    print('运行类型1111111111111111111:${list.runtimeType}');
+//    print('运行类型1111111111111111111:${list.runtimeType}');
     List<BxMallSubDto> bxMallSubDtoList =
         list.map((i) => BxMallSubDto.fromJson(i)).toList();
 

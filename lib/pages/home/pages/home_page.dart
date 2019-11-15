@@ -11,12 +11,14 @@ import 'floor_title.dart';
 import 'floor_content.dart';
 import 'hot_goods.dart';
 import 'package:flutter_shop/widget/loaders/loader.dart';
+import 'package:flutter_shop/pages/helper/refresh_helper.dart';
 
 class HomePage extends StatefulWidget {
   _HomePage createState() => _HomePage();
 }
 
 class _HomePage extends State<HomePage> {
+  EasyRefreshController easyRefreshController = EasyRefreshController();
   String homePageContent = '正在获取数据';
   String pageStatus = 'loading';
   int page = 1;
@@ -47,6 +49,8 @@ class _HomePage extends State<HomePage> {
           pageStatus = 'success';
           page++;
         });
+        easyRefreshController.finishLoad(
+            success: true, noMore: newGoodsList.length == 0);
       } else {
         setState(() {
           pageStatus = 'error';
@@ -97,6 +101,9 @@ class _HomePage extends State<HomePage> {
                 (data['data']['floor3'] as List).cast(); //楼层1商品和图片
 
             return EasyRefresh(
+              footer: RefreshHelper.footer,
+              enableControlFinishLoad: true,
+              controller: easyRefreshController,
               child: ListView(
                 children: <Widget>[
                   SwiperDiy(

@@ -3,6 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/provider/details_info.dart';
 import 'package:flutter_shop/provider/cart.dart';
+import 'package:oktoast/oktoast.dart';
+import 'package:flutter_shop/routers/fluro_navigator.dart';
+import 'package:flutter_shop/pages/cart/cart_router.dart';
 
 class DetailsBottom extends StatelessWidget {
   @override
@@ -22,7 +25,9 @@ class DetailsBottom extends StatelessWidget {
         child: Row(
           children: <Widget>[
             InkWell(
-              onTap: () {},
+              onTap: () {
+                NavigatorUtils.push(context, CartRouter.cartPage);
+              },
               child: Container(
                 width: ScreenUtil().setWidth(110),
                 alignment: Alignment.center,
@@ -37,6 +42,13 @@ class DetailsBottom extends StatelessWidget {
               onTap: () {
                 Provider.of<CartProvider>(context)
                     .save(goodsId, goodsName, count, price, images);
+                showToast(
+                  '加入成功',
+                  duration: Duration(seconds: 2),
+                  backgroundColor: Colors.black.withOpacity(0.5),
+                  position: ToastPosition.bottom,
+                  radius: 12.0,
+                );
               },
               child: Container(
                 alignment: Alignment.center,

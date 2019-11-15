@@ -24,7 +24,6 @@ getHomePageContent() async {
 
 Future getHomePageBeloContent(formData) async {
   try {
-    print('开始获取下拉数据...');
     Response response;
     Dio dio = new Dio();
     dio.options.contentType =
