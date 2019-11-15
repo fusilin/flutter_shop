@@ -6,28 +6,31 @@ import 'package:flutter_shop/routers/fluro_navigator.dart';
 import 'package:flutter_shop/routers/routes.dart';
 import 'package:flutter_shop/constant/color_constant.dart';
 import 'package:flutter_shop/widget/index.dart' show CustomSwiperPagination;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'index_page.dart';
 
 class SplashPage extends StatefulWidget {
   @override
   _SplashPageState createState() => new _SplashPageState();
+  final bool isFirstStart;
+
+  SplashPage({Key key, this.isFirstStart}) : super(key: key);
 }
 
 class _SplashPageState extends State<SplashPage> {
   List<String> _pList = ['assets/p1.jpg', 'assets/p2.jpg', 'assets/p3.jpg'];
+  SwiperController _controller = SwiperController();
+  ScrollPhysics _physics = ScrollPhysics();
 
   @override
   void initState() {
     super.initState();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _pList.forEach((image) {
         precacheImage(AssetImage(image), context);
       });
     });
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
   }
 
   Widget _imageItem(index) {
@@ -45,8 +48,12 @@ class _SplashPageState extends State<SplashPage> {
           _item,
           Positioned(
               child: RaisedButton(
-                onPressed: () => NavigatorUtils.push(context, Routes.indexPage,
-                    replace: true),
+                onPressed: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.setString('isFirstStart', 'isFirstStart');
+                  NavigatorUtils.push(context, Routes.indexPage, replace: true);
+                },
                 padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
                 color: ColorConstant.theme,
                 elevation: 10.0,
@@ -74,19 +81,20 @@ class _SplashPageState extends State<SplashPage> {
     ScreenUtil.instance =
         ScreenUtil(width: 750, height: 1334, allowFontScaling: false)
           ..init(context);
-    return Material(
-      child: Swiper(
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return _imageItem(index);
-        },
-        loop: false,
-        autoplay: false,
-//        pagination: SwiperPagination(
-//          builder: SwiperPagination.dots
-//        )
-        pagination: CustomSwiperPagination(),
-      ),
-    );
+    return widget.isFirstStart
+        ? Material(
+            child: Swiper(
+              itemCount: 3,
+              itemBuilder: (context, index) {
+                return _imageItem(index);
+              },
+              controller: _controller,
+              physics: _physics,
+              loop: false,
+              autoplay: false,
+              pagination: CustomSwiperPagination(),
+            ),
+          )
+        : IndexPage();
   }
 }

@@ -50,21 +50,23 @@ class _CartPageState extends State<CartPage> {
       body: Container(
           child: Column(
         children: <Widget>[
-          Container(
-            child: ListView.builder(
-              itemCount: testList.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(testList[index]),
-                );
-              },
-            ),
-          ),
+//          Container(
+//            child: ListView.builder(
+//              itemCount: testList.length,
+//              itemBuilder: (context, index) {
+//                return ListTile(
+//                  title: Text(testList[index] ?? '哈哈'),
+//                );
+//              },
+//            ),
+//          ),
           RaisedButton(
+            key: Key('CartPageRaisedButton1'),
             onPressed: () => _add(),
             child: Text('新增'),
           ),
           RaisedButton(
+            key: Key('CartPageRaisedButton2'),
             onPressed: () => _delete(),
             child: Text('删除'),
           ),

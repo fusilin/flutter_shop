@@ -23,20 +23,13 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     super.initState();
-//    Provider.of<DetailsInfoProvider>(context)
-//        .setDetailInfoPageStatus('loading');
-    // 等待页面build完成后再请求数据
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<DetailsInfoProvider>(context)
+          .setDetailInfoPageStatus('loading');
+      Provider.of<DetailsInfoProvider>(context).changeLeftAndRight('left');
       Provider.of<DetailsInfoProvider>(context).setGoodsInfo(widget.goodsId);
     });
   }
-
-//  @override
-//  void dispose() {
-//    super.dispose();
-//    Provider.of<DetailsInfoProvider>(context)
-//        .setDetailInfoPageStatus('loading');
-//  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +41,10 @@ class _DetailsPageState extends State<DetailsPage> {
           body: data.pageStatus == 'success'
               ? Stack(
                   children: <Widget>[
-                    SingleChildScrollView(
-                      child: Container(
+                    Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      child: SingleChildScrollView(
                         child: Column(
                           children: <Widget>[
                             DetailsTopArea(),

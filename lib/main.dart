@@ -11,8 +11,10 @@ import 'package:flutter_shop/provider/child_category.dart';
 import 'package:flutter_shop/provider/category_goods_list.dart';
 import 'package:flutter_shop/provider/details_info.dart';
 import 'package:flutter_shop/provider/cart.dart';
+import 'splash_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
   AppUIStyle.appUIStyle();
   final router = new Router();
   Routes.configureRoutes(router);
@@ -22,6 +24,8 @@ void main() {
   final categoryGoodsList = CategoryGoodsListProvider();
   final detailsInfo = DetailsInfoProvider();
   final cartProvider = CartProvider();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final bool isFirstStart = prefs.getString('isFirstStart') != 'isFirstStart';
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider.value(value: counter),
@@ -30,11 +34,23 @@ void main() {
       ChangeNotifierProvider.value(value: detailsInfo),
       ChangeNotifierProvider.value(value: cartProvider),
     ],
-    child: MyApp(),
+    child: MyApp(isFirstStart: isFirstStart),
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  _MyAppState createState() => _MyAppState();
+  final bool isFirstStart;
+
+  MyApp({Key key, this.isFirstStart}) : super(key: key);
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return OKToast(
@@ -43,6 +59,7 @@ class MyApp extends StatelessWidget {
         title: 'Joker',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primaryColor: ColorConstant.theme),
+        home: SplashPage(isFirstStart: widget.isFirstStart),
         onGenerateRoute: Application.router.generator,
       ),
     );

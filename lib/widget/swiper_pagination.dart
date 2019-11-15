@@ -23,7 +23,6 @@ class CustomSwiperPagination extends SwiperPlugin {
     List<Widget> list = [];
     int itemCount = config.itemCount;
     int activeIndex = config.activeIndex;
-
     for (int i = 0; i < itemCount; ++i) {
       bool active = i == activeIndex;
       list.add(Container(

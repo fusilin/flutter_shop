@@ -28,8 +28,6 @@ class _CategoryPage extends State<CategoryPage> {
   _getCategory() async {
     await request('getCategory').then((result) {
       var data = json.decode(result.toString());
-      print(11111);
-      print(data);
       if (result.statusCode == 200) {
         CategoryBigListModel category =
             CategoryBigListModel.formJson(data['data']);

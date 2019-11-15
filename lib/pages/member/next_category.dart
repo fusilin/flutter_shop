@@ -19,7 +19,6 @@ class NextCategory extends StatelessWidget {
 //            },
 //            child: Icon(Icons.add)),
         body: Consumer<CounterModel>(builder: (context, counter, _) {
-          print('-------111111-------');
           return Text(
             'Value: ${counter.count}',
           );
