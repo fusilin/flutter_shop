@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:flutter_shop/configs/appUIStyle.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_shop/constant/index.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter_shop/routers/routes.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:flutter_shop/routers/application.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_shop/provider/counter_model.dart';
@@ -12,10 +13,11 @@ import 'package:flutter_shop/provider/category_goods_list.dart';
 import 'package:flutter_shop/provider/details_info.dart';
 import 'package:flutter_shop/provider/cart.dart';
 import 'splash_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   AppUIStyle.appUIStyle();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final bool isFirstStart = prefs.getString('isFirstStart') != 'isFirstStart';
   final router = new Router();
   Routes.configureRoutes(router);
   Application.router = router;
@@ -24,8 +26,6 @@ void main() async {
   final categoryGoodsList = CategoryGoodsListProvider();
   final detailsInfo = DetailsInfoProvider();
   final cartProvider = CartProvider();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  final bool isFirstStart = prefs.getString('isFirstStart') != 'isFirstStart';
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider.value(value: counter),
@@ -38,18 +38,10 @@ void main() async {
   ));
 }
 
-class MyApp extends StatefulWidget {
-  _MyAppState createState() => _MyAppState();
+class MyApp extends StatelessWidget {
   final bool isFirstStart;
 
   MyApp({Key key, this.isFirstStart}) : super(key: key);
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +51,7 @@ class _MyAppState extends State<MyApp> {
         title: 'Joker',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primaryColor: ColorConstant.theme),
-        home: SplashPage(isFirstStart: widget.isFirstStart),
+        home: SplashPage(isFirstStart: isFirstStart),
         onGenerateRoute: Application.router.generator,
       ),
     );

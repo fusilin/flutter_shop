@@ -34,7 +34,7 @@ class CartProvider with ChangeNotifier {
     } else {
       List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
       tempList.forEach((item) {
-        _cartList.add(new CartInfoMode.fromJson(item));
+        _cartList.add(CartInfoMode.fromJson(item));
       });
       var listLength = _cartList.length;
       var tempLength = 0;
@@ -93,7 +93,7 @@ class CartProvider with ChangeNotifier {
         'isCheck': isCheck,
       };
       tempList.add(newGoods);
-      _cartList.add(new CartInfoMode.fromJson(newGoods));
+      _cartList.add(CartInfoMode.fromJson(newGoods));
       //关键代码-----------------end
     }
     //把字符串进行encode操作，

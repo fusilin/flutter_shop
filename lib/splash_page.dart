@@ -25,7 +25,6 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _pList.forEach((image) {
         precacheImage(AssetImage(image), context);

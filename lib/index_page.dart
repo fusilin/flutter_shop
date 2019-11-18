@@ -26,6 +26,7 @@ class _IndexPageState extends State<IndexPage> {
 
   @override
   void initState() {
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
         .copyWith(statusBarIconBrightness: Brightness.light));
     super.initState();

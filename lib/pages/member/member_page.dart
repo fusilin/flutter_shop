@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:flutter_shop/routers/fluro_navigator.dart';
 import 'package:flutter_shop/pages/cart/cart_router.dart';
 import 'package:fluro/fluro.dart';
+import 'package:flutter_shop/pages/animation/animation_router.dart';
 
 class MemberPage extends StatefulWidget {
   _MemberPageState createState() => _MemberPageState();
@@ -29,7 +29,7 @@ class _MemberPageState extends State<MemberPage> {
           title == '极光推送'
               ? NavigatorUtils.push(context, CartRouter.jsPush,
                   transition: TransitionType.inFromRight)
-              : showToast('嗨');
+              : NavigatorUtils.push(context, AnimationRouter.animationPage);
         },
         leading: Icon(Icons.blur_circular),
         title: Text(title),
@@ -48,11 +48,12 @@ class _MemberPageState extends State<MemberPage> {
           body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                _myListTile('领取优惠券'),
-                _myListTile('已领取优惠券'),
-                _myListTile('地址管理'),
-                _myListTile('客服电话'),
+//                _myListTile('领取优惠券'),
+//                _myListTile('已领取优惠券'),
+//                _myListTile('地址管理'),
+//                _myListTile('客服电话'),
                 _myListTile('极光推送'),
+                _myListTile('动画'),
               ],
             ),
           )),

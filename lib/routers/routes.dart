@@ -7,6 +7,7 @@ import 'package:flutter_shop/pages/cart/cart_router.dart';
 import 'package:flutter_shop/pages/home/home_router.dart';
 import 'package:flutter_shop/pages/category/category_router.dart';
 import 'package:flutter_shop/pages/detail/detail_router.dart';
+import 'package:flutter_shop/pages/animation/animation_router.dart';
 
 class Routes {
   static List<InitRouterProvider> _listRouter = [];
@@ -27,6 +28,7 @@ class Routes {
     _listRouter.add(CategoryRouter());
     _listRouter.add(CartRouter());
     _listRouter.add(DetailRouter());
+    _listRouter.add(AnimationRouter());
 
     _listRouter.forEach((routerProvider) {
       routerProvider.initRouter(router);
