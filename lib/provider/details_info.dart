@@ -21,7 +21,7 @@ class DetailsInfoProvider with ChangeNotifier {
   get isRight => _isRight;
 
   setGoodsInfo(goodsId) async {
-    await request('getGoodDetailById', formData: {'goodId': goodsId})
+    await request(url: 'getGoodDetailById', formData: {'goodId': goodsId})
         .then((result) {
       if (result.statusCode == 200) {
         var data = json.decode(result.toString());

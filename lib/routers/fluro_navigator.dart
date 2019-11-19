@@ -17,6 +17,7 @@ class NavigatorUtils {
         transition: transition,
         transitionDuration: transitionDuration,
         transitionBuilder: transitionBuilder);
+
   }
 
   static void goBack(BuildContext context, {dynamic result}) {

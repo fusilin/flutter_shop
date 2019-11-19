@@ -8,13 +8,15 @@ import 'package:flutter_shop/constant/color_constant.dart';
 import 'package:flutter_shop/widget/index.dart' show CustomSwiperPagination;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'index_page.dart';
+//import 'login.dart';
 
 class SplashPage extends StatefulWidget {
   @override
   _SplashPageState createState() => new _SplashPageState();
   final bool isFirstStart;
+  final bool isLogin;
 
-  SplashPage({Key key, this.isFirstStart}) : super(key: key);
+  SplashPage({Key key, this.isFirstStart, this.isLogin}) : super(key: key);
 }
 
 class _SplashPageState extends State<SplashPage> {

@@ -12,12 +12,15 @@ import 'package:flutter_shop/provider/child_category.dart';
 import 'package:flutter_shop/provider/category_goods_list.dart';
 import 'package:flutter_shop/provider/details_info.dart';
 import 'package:flutter_shop/provider/cart.dart';
+//import 'package:fluwx/fluwx.dart' as fluwx;
 import 'splash_page.dart';
 
 void main() async {
   AppUIStyle.appUIStyle();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final bool isFirstStart = prefs.getString('isFirstStart') != 'isFirstStart';
+  final bool isLogin = prefs.getString('isLogin') != 'isLogin';
+//  fluwx.registerWxApi(appId: 'wxb12d51579ba8aad0');
   final router = new Router();
   Routes.configureRoutes(router);
   Application.router = router;
@@ -34,14 +37,15 @@ void main() async {
       ChangeNotifierProvider.value(value: detailsInfo),
       ChangeNotifierProvider.value(value: cartProvider),
     ],
-    child: MyApp(isFirstStart: isFirstStart),
+    child: MyApp(isFirstStart: isFirstStart, isLogin: isLogin),
   ));
 }
 
 class MyApp extends StatelessWidget {
   final bool isFirstStart;
+  final bool isLogin;
 
-  MyApp({Key key, this.isFirstStart}) : super(key: key);
+  MyApp({Key key, this.isFirstStart, this.isLogin}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +55,7 @@ class MyApp extends StatelessWidget {
         title: 'Joker',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primaryColor: ColorConstant.theme),
-        home: SplashPage(isFirstStart: isFirstStart),
+        home: SplashPage(isFirstStart: isFirstStart, isLogin: isLogin),
         onGenerateRoute: Application.router.generator,
       ),
     );

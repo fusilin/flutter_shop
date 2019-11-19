@@ -45,16 +45,16 @@ Future getHomePageBeloContent(formData) async {
   }
 }
 
-Future request(url, {formData}) async {
+Future request({url, cusUrl, formData}) async {
   try {
     Response response;
     Dio dio = new Dio();
     dio.options.contentType =
         ContentType.parse("application/x-www-form-urlencoded");
     if (formData == null) {
-      response = await dio.post(servicePath[url]);
+      response = await dio.post(cusUrl ?? servicePath[url]);
     } else {
-      response = await dio.post(servicePath[url], data: formData);
+      response = await dio.post(cusUrl ?? servicePath[url], data: formData);
     }
     return response;
 //    if (response.statusCode == 200) {

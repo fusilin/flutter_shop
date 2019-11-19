@@ -40,7 +40,7 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
       'categorySubId': _categorySubId,
       'page': 1
     };
-    await request('getMallGoods', formData: params).then((result) {
+    await request(url: 'getMallGoods', formData: params).then((result) {
       var data = json.decode(result.toString());
       if (result.statusCode == 200) {
         CategoryGoodsListModel goodsList =
@@ -75,7 +75,7 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
       'categorySubId': _categorySubId,
       'page': _page + 1
     };
-    await request('getMallGoods', formData: params).then((result) {
+    await request(url: 'getMallGoods', formData: params).then((result) {
       var data = json.decode(result.toString());
       if (result.statusCode == 200) {
         CategoryGoodsListModel goodsList =

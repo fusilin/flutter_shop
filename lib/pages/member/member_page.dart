@@ -19,17 +19,14 @@ class _MemberPageState extends State<MemberPage> {
     super.didChangeDependencies();
   }
 
-  Widget _myListTile(String title) {
+  Widget _myListTile(String title, router) {
     return Container(
       decoration: BoxDecoration(
           color: Colors.white,
           border: Border(bottom: BorderSide(width: 1, color: Colors.black12))),
       child: ListTile(
         onTap: () {
-          title == '极光推送'
-              ? NavigatorUtils.push(context, CartRouter.jsPush,
-                  transition: TransitionType.inFromRight)
-              : NavigatorUtils.push(context, AnimationRouter.animationPage);
+          NavigatorUtils.push(context, router);
         },
         leading: Icon(Icons.blur_circular),
         title: Text(title),
@@ -52,8 +49,9 @@ class _MemberPageState extends State<MemberPage> {
 //                _myListTile('已领取优惠券'),
 //                _myListTile('地址管理'),
 //                _myListTile('客服电话'),
-                _myListTile('极光推送'),
-                _myListTile('动画'),
+                _myListTile('极光推送', CartRouter.jsPush),
+                _myListTile('动画', AnimationRouter.animationPage),
+                _myListTile('alert Demo', AnimationRouter.animationPage),
               ],
             ),
           )),

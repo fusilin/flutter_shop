@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_shop/provider/cart.dart';
 import 'cart_item.dart';
 import 'cart_bottom.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
-import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:oktoast/oktoast.dart';
 
 class CartPage extends StatefulWidget {
@@ -41,29 +41,38 @@ class _CartPageState extends State<CartPage> {
                 icon: Icon(Icons.delete),
                 onPressed: () {
                   provider.cartList.length > 0
-                      ? showDialog(
+                      ? showCupertinoDialog(
                           context: context,
-                          builder: (_) => NetworkGiffyDialog(
-                                image: Image.asset('assets/default_joker.jpg'),
-                                title: Text('提示',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 22.0,
-                                        fontWeight: FontWeight.w600)),
-                                description: Text('确认删除?'),
-                                entryAnimation: EntryAnimation.DEFAULT,
-                                onOkButtonPressed: () {
-                                  provider.remove();
-                                  showToast(
-                                    '删除成功',
-                                    duration: Duration(seconds: 2),
-                                    backgroundColor:
-                                        Colors.black.withOpacity(0.5),
-                                    position: ToastPosition.center,
-                                    radius: 12.0,
-                                  );
-                                },
-                              ))
+                          builder: (BuildContext context) {
+                            return CupertinoAlertDialog(
+                              title: Text('删除提示'),
+                              content: Text('确认清空购物车？'),
+                              actions: <Widget>[
+                                CupertinoDialogAction(
+                                  child: Text('取消'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                CupertinoDialogAction(
+                                  child: Text('确定'),
+                                  isDestructiveAction: true,
+                                  onPressed: () {
+                                    provider.remove();
+                                    Navigator.pop(context);
+                                    showToast(
+                                      '删除成功',
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor:
+                                          Colors.black.withOpacity(0.5),
+                                      position: ToastPosition.center,
+                                      radius: 12.0,
+                                    );
+                                  },
+                                ),
+                              ],
+                            );
+                          })
                       : showToast(
                           '已经空空如意',
                           duration: Duration(seconds: 2),

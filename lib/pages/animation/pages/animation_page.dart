@@ -52,8 +52,8 @@ class _AnimationPageState extends State<AnimationPage>
         animation2 = ColorTween(begin: Colors.yellow, end: Colors.red)
             .animate(animationController);
 
-        animation3 = Tween(begin: 0.0, end: 200.0).animate(
-            CurvedAnimation(parent: animationController, curve: Curves.linear));
+        animation3 = Tween(begin: 0.0, end: 350.0).animate(
+            CurvedAnimation(parent: animationController, curve: Curves.bounceIn));
 
         animationController.forward();
         animationController.addListener(_animationControllerListen);
@@ -77,12 +77,12 @@ class _AnimationPageState extends State<AnimationPage>
       body: animationController == null
           ? ColorLoader()
           : RotationTransition(
-              turns: animationController,
-              child: AnimationContainer(
-                  animation1: animation1,
-                  animation2: animation2,
-                  animation3: animation3),
-            ),
+        turns: animationController,
+        child: AnimationContainer(
+            animation1: animation1,
+            animation2: animation2,
+            animation3: animation3),
+      ),
     );
   }
 }

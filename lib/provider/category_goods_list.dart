@@ -52,7 +52,7 @@ class CategoryGoodsListProvider with ChangeNotifier {
       'categorySubId': _categorySubId,
       'page': 1
     };
-    await request('getMallGoods', formData: params).then((result) {
+    await request(url: 'getMallGoods', formData: params).then((result) {
       var data = json.decode(result.toString());
       if (result.statusCode == 200) {
         CategoryGoodsListModel goodsList =

@@ -40,15 +40,88 @@ class DetailsBottom extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Provider.of<CartProvider>(context)
-                    .save(goodsId, goodsName, count, price, images);
-                showToast(
-                  '加入成功',
-                  duration: Duration(seconds: 2),
-                  backgroundColor: Colors.black.withOpacity(0.5),
-                  position: ToastPosition.bottom,
-                  radius: 12.0,
-                );
+                showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    useRootNavigator: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (BuildContext context) {
+                      return Container(
+                          height: ScreenUtil().setHeight(1334) * 0.65,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: ScreenUtil().setWidth(24.0),
+                              vertical: ScreenUtil().setWidth(40.0)),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20.0),
+                              topRight: Radius.circular(20.0),
+                            ),
+                          ),
+                          child: SingleChildScrollView(
+                            child: GestureDetector(
+                              onTap: () => Navigator.pop(context),
+                              child: Column(
+                                children: <Widget>[
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                  Text('test'),
+                                ],
+                              ),
+                            ),
+                          ));
+                    });
+//
+//                Provider.of<CartProvider>(context)
+//                    .save(goodsId, goodsName, count, price, images);
+//                showToast(
+//                  '加入成功',
+//                  duration: Duration(seconds: 2),
+//                  backgroundColor: Colors.black.withOpacity(0.5),
+//                  position: ToastPosition.bottom,
+//                  radius: 12.0,
+//                );
               },
               child: Container(
                 alignment: Alignment.center,

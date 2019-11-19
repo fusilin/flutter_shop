@@ -26,7 +26,7 @@ class _CategoryPage extends State<CategoryPage> {
   }
 
   _getCategory() async {
-    await request('getCategory').then((result) {
+    await request(url: 'getCategory').then((result) {
       var data = json.decode(result.toString());
       if (result.statusCode == 200) {
         CategoryBigListModel category =
@@ -57,7 +57,7 @@ class _CategoryPage extends State<CategoryPage> {
       'categorySubId': _categorySubId,
       'page': 1
     };
-    await request('getMallGoods', formData: params).then((result) {
+    await request(url: 'getMallGoods', formData: params).then((result) {
       var data = json.decode(result.toString());
       if (result.statusCode == 200) {
         CategoryGoodsListModel goodsList =
