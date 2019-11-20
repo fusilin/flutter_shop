@@ -48,9 +48,6 @@ class DetailsBottom extends StatelessWidget {
                     builder: (BuildContext context) {
                       return Container(
                           height: ScreenUtil().setHeight(1334) * 0.65,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: ScreenUtil().setWidth(24.0),
-                              vertical: ScreenUtil().setWidth(40.0)),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
@@ -59,6 +56,9 @@ class DetailsBottom extends StatelessWidget {
                             ),
                           ),
                           child: SingleChildScrollView(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: ScreenUtil().setWidth(24.0),
+                                vertical: ScreenUtil().setWidth(40.0)),
                             child: GestureDetector(
                               onTap: () => Navigator.pop(context),
                               child: Column(
